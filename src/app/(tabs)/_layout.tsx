@@ -1,6 +1,7 @@
 import { Tabs } from 'expo-router';
 import { Foundation, Ionicons } from '@expo/vector-icons';
 import { THEME } from '@/theme';
+import Avatar from '@/components/Avatar';
 
 export default function TabLayout() {
   return (
@@ -34,6 +35,12 @@ export default function TabLayout() {
       />
       <Tabs.Screen
         name="profile"
+        options={{
+          tabBarIcon: ({color}) => <Avatar
+            selected={color === THEME.COLORS.WHITE}
+            source={{uri: 'https://github.com/thalisson-danelon.png'}}
+          />
+        }}
       />
     </Tabs>
   )
