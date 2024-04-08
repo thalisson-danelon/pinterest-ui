@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { THEME } from '@/theme';
 
-export default function Messages() {
+export default function Search() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Messages</Text>
+      <Text style={styles.text}>Search</Text>
     </View>
   );
 }
