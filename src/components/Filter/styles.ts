@@ -2,7 +2,9 @@ import { StyleSheet } from 'react-native';
 import { THEME } from '@/theme';
 
 export const styles = StyleSheet.create({
-  pressable: {},
+  pressable: {
+    paddingBottom: 6
+  },
   text: {
     color: THEME.COLORS.WHITE,
     fontSize: 16,
