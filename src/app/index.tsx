@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { View, StyleSheet, useWindowDimensions } from 'react-native';
 import Animated, {
+  runOnJS,
+  SlideInDown,
   useAnimatedStyle,
   useSharedValue,
   withSequence,
@@ -9,10 +11,12 @@ import Animated, {
 
 import { THEME } from '@/theme';
 import { Skeleton } from 'moti/skeleton';
+import { router } from 'expo-router';
 
 export default function Splash() {
   const logoScale = useSharedValue(1);
   const logoPositionY = useSharedValue(0);
+  const contentDisplay = useSharedValue(0);
 
   const dimentions = useWindowDimensions();
 
@@ -29,13 +33,22 @@ export default function Splash() {
     ]
   }));
 
+  const contentAnimatedStyles = useAnimatedStyle(() => ({
+    display: contentDisplay.value === 1 ? 'flex' : 'none'
+  }));
+
   function logoAnimation() {
     logoScale.value = withSequence(
       withTiming(0.7),
       withTiming(1.3),
       withTiming(1, undefined, (finished) => {
         if (finished) {
-          logoPositionY.value = withSequence(withTiming(50), withTiming(-dimentions.height, {duration: 400}));
+          logoPositionY.value = withSequence(
+            withTiming(50, undefined, () => (contentDisplay.value = 1)),
+            withTiming(-dimentions.height, {duration: 400})
+          );
+
+          runOnJS(onEndSplash)();
         }
       }),
     )
@@ -60,6 +73,12 @@ export default function Splash() {
     });
   }
 
+  function onEndSplash() {
+    setTimeout(() => {
+      router.push('/(tabs)');
+    }, 2000);
+  }
+
   useEffect(() => {
     logoAnimation();
   }, []);
@@ -70,12 +89,14 @@ export default function Splash() {
       style={[styles.logo, logoAnimatedStyle]}
     />
 
-    <View style={styles.header}>{filters()}</View>
+    <Animated.View style={[styles.content, contentAnimatedStyles]} entering={SlideInDown.duration(500)}>
+      <View style={styles.header}>{filters()}</View>
 
-    <View style={styles.boxes}>
-      <View style={styles.column}>{boxes('left')}</View>
-      <View style={styles.column}>{boxes('right')}</View>
-    </View>
+      <View style={styles.boxes}>
+        <View style={styles.column}>{boxes('left')}</View>
+        <View style={styles.column}>{boxes('right')}</View>
+      </View>
+    </Animated.View>
   </View>
 }
 
@@ -111,5 +132,9 @@ const styles = StyleSheet.create({
   column: {
     flex: 1,
     gap: 12,
+  },
+  content: {
+    flex: 1,
+    width: '100%',
   }
 });
