@@ -2,8 +2,8 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   list: {
-    paddingBottom: 4,
-    minHeight: 30
+    paddingBottom: 16,
+    minHeight: 42
   },
   content: {
     gap: 24,

@@ -23,6 +23,7 @@ export default function TabLayout() {
         tabBarStyle: {
           borderBlockColor: THEME.COLORS.BLACK,
           backgroundColor: THEME.COLORS.BLACK,
+          paddingHorizontal: 40,
         }
       }}>
         <Tabs.Screen

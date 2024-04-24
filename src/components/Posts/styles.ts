@@ -9,6 +9,6 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   list: {
-    paddingTop: 16,
+    paddingBottom: 16,
   }
 });

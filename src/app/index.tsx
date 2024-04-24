@@ -89,7 +89,7 @@ export default function Splash() {
       style={[styles.logo, logoAnimatedStyle]}
     />
 
-    <Animated.View style={[styles.content, contentAnimatedStyles]} entering={SlideInDown.duration(500)}>
+    <Animated.View style={[styles.content, contentAnimatedStyles]} entering={SlideInDown.duration(80)}>
       <View style={styles.header}>{filters()}</View>
 
       <View style={styles.boxes}>
